@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Oswald&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Oswald&display=swap');
 /* font-family: "Merriweather", serif;
 font-family: "Oswald", sans-serif; */
 * {
@@ -7,20 +7,20 @@ font-family: "Oswald", sans-serif; */
 }
 
 h1 {
-  font-family: "Oswald", sans-serif;
+  font-family: 'Oswald', sans-serif;
   font-size: 4rem;
   padding: 0px;
   margin: 0px;
 }
 
 h2 {
-  font-family: "Oswald", sans-serif;
+  font-family: 'Oswald', sans-serif;
   font-size: 2em;
   text-transform: capitalize;
 }
 
 p {
-  font-family: "Merriweather", serif;
+  font-family: 'Merriweather', serif;
   font-size: 1.2em;
 }
 

@@ -1,7 +1,7 @@
 
 
 /*delay på data hentning i ms */
-const myLoadTime = 2000;
+const myLoadTime = 300;
 
 // reset variables
 let myData = null;
@@ -13,9 +13,83 @@ window.addEventListener("load", initApp);
 
 
 // din kode her 
+const app = document.querySelector('#app')
 
 
+function initApp() {
+    // Vis loading text
+    app.innerText = 'Loading Animals'
+    fetchData()
+}
 
+function initGallery(data) {
+    //fjern loading text
+    app.innerHTML = ''
+
+    // loop over data og append returns
+    data.map((animal) => {
+        app.append(createCard(animal))
+    })
+}
+
+function createCard(cardData) {
+    // Opret DOM-elementer
+    let newCard = document.createElement('article')
+    let cardTitle = document.createElement('h2')
+    let cardDesc = document.createElement('p')
+    let cardImg = document.createElement('img')
+
+    // Føj indhold til elementer
+    cardTitle.innerText = cardData.name
+    cardDesc.innerText = cardData.shortDescription
+    cardImg.src = cardData.picture
+    cardImg.alt = cardData.name
+
+    // Konsolider elementer
+    newCard.append(cardTitle)
+    newCard.append(cardImg)
+    newCard.append(cardDesc)
+    newCard.style.cursor = 'pointer'
+
+    // Giv class
+    newCard.classList.add('galleryCard')
+
+    // tilføj onclick
+    newCard.addEventListener('click', (e) => {
+        e.currentTarget.classList.toggle('detailView')
+        e.currentTarget.classList.toggle('galleryCard')
+        showDetailView(e.currentTarget, cardData.description, cardData.shortDescription)
+    })
+
+    // indsæt figure i card
+    return newCard
+}
+
+function showDetailView(card, description, shortDescription) {
+    // Vis lang beskrivelse
+    card.getElementsByTagName('p')[0].innerText = card.classList.contains('detailView') ? description : shortDescription
+
+    // find alle cards og vis/skjul baseret på class
+    let allCards = document.querySelectorAll('article')
+
+    //hvis classlist indeholder detailView
+    if (card.classList.contains('detailView')) {
+        allCards.forEach((art) => {
+            if (card === art) {
+                // gør intent
+            } else {
+                // skjule cards der ikke blev klikket på
+                art.style.display = 'none'
+            }
+        })
+    }
+    // hvis ikke den indeholder (viser alle cards igen)
+    else {
+        allCards.forEach((art) => {
+            art.style.display = 'block'
+        })
+    }
+}
 
 
 /*  get data function  DO NOT TOUCH!!!!! ......................................................
@@ -30,7 +104,7 @@ async function fetchData() {
     console.log('fetching data');
     await new Promise(resolve => setTimeout(resolve, myLoadTime));
 
-    const myData = [
+    myData = [
 
         {
             name: 'Elefant',
